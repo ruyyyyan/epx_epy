@@ -36,7 +36,7 @@ directions_to_vecs = {'UR': (1,1,0),\
                       'mzD': (0,-1,-1)}
 tpp_nn_hop_dir = ['UR','UL','DL','DR']
 
-def set_tpd_tpp(Norb,tpd,tpp,pds,pdp,pps,ppp):
+def set_tpd_tpp(Norb,tpd,tpddiff,tpp,pds,pdp,pps,ppp):
     # dxz and dyz has no tpd hopping
     if pam.Norb==7:
         tpd_nn_hop_dir = {'d3z2r2': ['L','R','U','D'],\
@@ -79,23 +79,24 @@ def set_tpd_tpp(Norb,tpd,tpp,pds,pdp,pps,ppp):
     # between two neighboring atoms. 
     if pam.Norb==7:
         # d3z2r2 has +,-,+ sign structure so that it is - in x-y plane
-        tpd_nn_hop_fac = {('d3z2r2','L','px'): -tpd/np.sqrt(3),\
-                          ('d3z2r2','R','px'):  tpd/np.sqrt(3),\
-                          ('d3z2r2','U','py'):  tpd/np.sqrt(3),\
-                          ('d3z2r2','D','py'): -tpd/np.sqrt(3),\
-                          ('dx2y2','L','px'):   tpd,\
-                          ('dx2y2','R','px'):  -tpd,\
-                          ('dx2y2','U','py'):   tpd,\
-                          ('dx2y2','D','py'):  -tpd,\
+        # all tpdx>tpdy
+        tpd_nn_hop_fac = {('d3z2r2','L','px'): -(tpd+tpddiff)/np.sqrt(3),\
+                          ('d3z2r2','R','px'):  (tpd+tpddiff)/np.sqrt(3),\
+                          ('d3z2r2','U','py'):  (tpd-tpddiff)/np.sqrt(3),\
+                          ('d3z2r2','D','py'): -(tpd-tpddiff)/np.sqrt(3),\
+                          ('dx2y2','L','px'):   (tpd+tpddiff),\
+                          ('dx2y2','R','px'):  -(tpd+tpddiff),\
+                          ('dx2y2','U','py'):   (tpd-tpddiff),\
+                          ('dx2y2','D','py'):  -(tpd-tpddiff),\
                           # below just inverse dir of the above one by one
-                          ('px','R','d3z2r2'): -tpd/np.sqrt(3),\
-                          ('px','L','d3z2r2'):  tpd/np.sqrt(3),\
-                          ('py','D','d3z2r2'):  tpd/np.sqrt(3),\
-                          ('py','U','d3z2r2'): -tpd/np.sqrt(3),\
-                          ('px','R','dx2y2'):   tpd,\
-                          ('px','L','dx2y2'):  -tpd,\
-                          ('py','D','dx2y2'):   tpd,\
-                          ('py','U','dx2y2'):  -tpd}
+                          ('px','R','d3z2r2'): -(tpd+tpddiff)/np.sqrt(3),\
+                          ('px','L','d3z2r2'):  (tpd+tpddiff)/np.sqrt(3),\
+                          ('py','D','d3z2r2'):  (tpd-tpddiff)/np.sqrt(3),\
+                          ('py','U','d3z2r2'): -(tpd-tpddiff)/np.sqrt(3),\
+                          ('px','R','dx2y2'):   (tpd+tpddiff),\
+                          ('px','L','dx2y2'):  -(tpd+tpddiff),\
+                          ('py','D','dx2y2'):   (tpd-tpddiff),\
+                          ('py','U','dx2y2'):  -(tpd-tpddiff)}
     elif pam.Norb==9:
         c = np.sqrt(3)/2.0
         tpd_nn_hop_fac = {('d3z2r2','L','px1'): -pds/2.0,\

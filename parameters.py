@@ -20,7 +20,7 @@ ed = {'d3z2r2': 0,\
       'dxz'   : 0,\
       'dyz'   : 0}
 ep_avgs = np.arange(3.5, 7.01, 3.5) 
-ep_difs = np.arange(0.0, 0.101, 0.005) 
+ep_difs = np.arange(0.0, 0.101, 0.01) 
 #for computing critical points and plotting precise figures
 # ep_avgs1 = np.arange(0.0, 6.49, 0.5)
 # ep_avgs2 = np.arange(6.5, 8.99, 0.1)
@@ -28,7 +28,7 @@ ep_difs = np.arange(0.0, 0.101, 0.005)
 # ep_avgs=np.hstack((np.hstack((ep_avgs1, ep_avgs2)),ep_avgs3))
 
 # ep_avgs=np.arange(7.9,8.21,0.02)
-# ep_difs = np.arange(0.0, 0.051, 0.005) 
+# ep_difs = np.arange(0.0, 0.051, 10) 
 
 As = np.arange(6.0, 6.01, 1.0)
 B = 0.15
@@ -38,9 +38,9 @@ C = 0.58
 #B = 0
 #C = 0
 
-Upps = np.arange(3, 4.01, 10)
+Upps = np.arange(0, 4.01, 10)
 Vpps = np.arange(0.0, 0.01, 0.1)
-Udifs = np.arange(-1.0,1.01,0.1)
+Udifs = np.arange(0,1.01,10)
 
 Upds = np.arange(0,0.51,10)
 Updfs = np.arange(0,0.101,10)
@@ -56,6 +56,7 @@ if Norb==3 or Norb==7:
     #tpds = [0.00001]  # for check_CuO4_eigenvalues.py
     tpds = np.linspace(1.5, 1.5, num=1, endpoint=True) #[0.25]
     #tpds = [0.0001]
+    tpddiffs = np.arange(-0.2, 0.2001, 0.04)
     tpps = [0.55]
 elif Norb==9 or Norb==10 or Norb==11:    
     # pdp = sqrt(3)/4*pds so that tpd(b2)=tpd(b1)/2: see Eskes's thesis and 1990 paper
