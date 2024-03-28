@@ -19,14 +19,13 @@ ed = {'d3z2r2': 0,\
       'dxy'   : 0,\
       'dxz'   : 0,\
       'dyz'   : 0}
-# ep_avgs = np.arange(3.5, 7.01, 3.5) 
-# ep_difs = np.arange(0.0, 0.101, 0.01) 
+ep_avgs = np.arange(3.5, 7.01, 3.5) 
 #for computing critical points or plotting precise figures
-ep_avgs1 = np.arange(0.0, 6.49, 0.5)
-ep_avgs2 = np.arange(6.5, 8.99, 0.1)
-ep_avgs3 = np.arange(9.00,12.01 , 0.5)
-ep_avgs=np.hstack((np.hstack((ep_avgs1, ep_avgs2)),ep_avgs3))
-ep_difs = np.arange(0.0, 0.051, 10) 
+# ep_avgs1 = np.arange(0.0, 6.49, 0.5)
+# ep_avgs2 = np.arange(6.5, 8.99, 0.1)
+# ep_avgs3 = np.arange(9.00,12.01 , 0.5)
+# ep_avgs=np.hstack((np.hstack((ep_avgs1, ep_avgs2)),ep_avgs3))
+ep_difs = np.arange(0.0, 0.051, 0.01) 
 
 As = np.arange(6.0, 6.01, 1.0)
 B = 0.15
@@ -49,7 +48,7 @@ Updfs = np.arange(0,0.101,10)
 
 # IMPORTANT: keep all hoppings below positive to avoid confusion
 #            hopping signs are considered in dispersion separately
-Norb = 9
+Norb = 11
 if Norb==3 or Norb==7:
     #tpds = [0.00001]  # for check_CuO4_eigenvalues.py
     tpds = np.linspace(1.5, 1.5, num=1, endpoint=True) #[0.25]
