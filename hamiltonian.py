@@ -36,7 +36,7 @@ directions_to_vecs = {'UR': (1,1,0),\
                       'mzD': (0,-1,-1)}
 tpp_nn_hop_dir = ['UR','UL','DL','DR']
 
-def set_tpd_tpp(Norb,tpd,tpddiff,tpp,pds,pdp,pps,ppp):
+def set_tpd_tpp(Norb,tpd,tpddiff,tpp,pds,pdsdiff,pdp,pdpdiff,pps,ppp):
     # dxz and dyz has no tpd hopping
     if pam.Norb==7:
         tpd_nn_hop_dir = {'d3z2r2': ['L','R','U','D'],\
@@ -99,62 +99,62 @@ def set_tpd_tpp(Norb,tpd,tpddiff,tpp,pds,pdp,pps,ppp):
                           ('py','U','dx2y2'):  -(tpd-tpddiff)}
     elif pam.Norb==9:
         c = np.sqrt(3)/2.0
-        tpd_nn_hop_fac = {('d3z2r2','L','px1'): -pds/2.0,\
-                          ('d3z2r2','R','px1'):  pds/2.0,\
-                          ('d3z2r2','U','py2'):  pds/2.0,\
-                          ('d3z2r2','D','py2'): -pds/2.0,\
-                          ('dx2y2','L','px1'):   pds*c,\
-                          ('dx2y2','R','px1'):  -pds*c,\
-                          ('dx2y2','U','py2'):   pds*c,\
-                          ('dx2y2','D','py2'):  -pds*c,\
+        tpd_nn_hop_fac = {('d3z2r2','L','px1'): -(pds+pdsdiff)/2.0,\
+                          ('d3z2r2','R','px1'):  (pds+pdsdiff)/2.0,\
+                          ('d3z2r2','U','py2'):  (pds-pdsdiff)/2.0,\
+                          ('d3z2r2','D','py2'): -(pds-pdsdiff)/2.0,\
+                          ('dx2y2','L','px1'):   (pds+pdsdiff)*c,\
+                          ('dx2y2','R','px1'):  -(pds+pdsdiff)*c,\
+                          ('dx2y2','U','py2'):   (pds-pdsdiff)*c,\
+                          ('dx2y2','D','py2'):  -(pds-pdsdiff)*c,\
                           ('dxy','L','py1'):  -pdp,\
                           ('dxy','R','py1'):   pdp,\
                           ('dxy','U','px2'):   pdp,\
                           ('dxy','D','px2'):  -pdp,\
                           # below just inverse dir of the above one by one
-                          ('px1','R','d3z2r2'): -pds/2.0,\
-                          ('px1','L','d3z2r2'):  pds/2.0,\
-                          ('py2','D','d3z2r2'):  pds/2.0,\
-                          ('py2','U','d3z2r2'): -pds/2.0,\
-                          ('px1','R','dx2y2'):   pds*c,\
-                          ('px1','L','dx2y2'):  -pds*c,\
-                          ('py2','D','dx2y2'):   pds*c,\
-                          ('py2','U','dx2y2'):  -pds*c,\
+                          ('px1','R','d3z2r2'): -(pds+pdsdiff)/2.0,\
+                          ('px1','L','d3z2r2'):  (pds+pdsdiff)/2.0,\
+                          ('py2','D','d3z2r2'):  (pds-pdsdiff)/2.0,\
+                          ('py2','U','d3z2r2'): -(pds-pdsdiff)/2.0,\
+                          ('px1','R','dx2y2'):   (pds+pdsdiff)*c,\
+                          ('px1','L','dx2y2'):  -(pds+pdsdiff)*c,\
+                          ('py2','D','dx2y2'):   (pds-pdsdiff)*c,\
+                          ('py2','U','dx2y2'):  -(pds-pdsdiff)*c,\
                           ('py1','R','dxy'):  -pdp,\
                           ('py1','L','dxy'):   pdp,\
                           ('px2','D','dxy'):   pdp,\
                           ('px2','U','dxy'):  -pdp}
     elif pam.Norb==11:
         c = np.sqrt(3)/2.0
-        tpd_nn_hop_fac = {('d3z2r2','L','px1'): -pds/2.0,\
-                          ('d3z2r2','R','px1'):  pds/2.0,\
-                          ('d3z2r2','U','py2'):  pds/2.0,\
-                          ('d3z2r2','D','py2'): -pds/2.0,\
-                          ('dx2y2','L','px1'):   pds*c,\
-                          ('dx2y2','R','px1'):  -pds*c,\
-                          ('dx2y2','U','py2'):   pds*c,\
-                          ('dx2y2','D','py2'):  -pds*c,\
-                          ('dxy','L','py1'):  -pdp,\
-                          ('dxy','R','py1'):   pdp,\
-                          ('dxy','U','px2'):   pdp,\
-                          ('dxy','D','px2'):  -pdp,\
+        tpd_nn_hop_fac = {('d3z2r2','L','px1'): -(pds+pdsdiff)/2.0,\
+                          ('d3z2r2','R','px1'):  (pds+pdsdiff)/2.0,\
+                          ('d3z2r2','U','py2'):  (pds-pdsdiff)/2.0,\
+                          ('d3z2r2','D','py2'): -(pds-pdsdiff)/2.0,\
+                          ('dx2y2','L','px1'):   (pds+pdsdiff)*c,\
+                          ('dx2y2','R','px1'):  -(pds+pdsdiff)*c,\
+                          ('dx2y2','U','py2'):   (pds-pdsdiff)*c,\
+                          ('dx2y2','D','py2'):  -(pds-pdsdiff)*c,\
+                          ('dxy','L','py1'):  -(pdp-pdpdiff),\
+                          ('dxy','R','py1'):   pdp-pdpdiff,\
+                          ('dxy','U','px2'):   pdp+pdpdiff,\
+                          ('dxy','D','px2'):  -(pdp+pdpdiff),\
                           ('dxz','L','pz1'):  -pdp,\
                           ('dxz','R','pz1'):   pdp,\
                           ('dyz','U','pz2'):   pdp,\
                           ('dyz','D','pz2'):  -pdp,\
                           # below just inverse dir of the above one by one
-                          ('px1','R','d3z2r2'): -pds/2.0,\
-                          ('px1','L','d3z2r2'):  pds/2.0,\
-                          ('py2','D','d3z2r2'):  pds/2.0,\
-                          ('py2','U','d3z2r2'): -pds/2.0,\
-                          ('px1','R','dx2y2'):   pds*c,\
-                          ('px1','L','dx2y2'):  -pds*c,\
-                          ('py2','D','dx2y2'):   pds*c,\
-                          ('py2','U','dx2y2'):  -pds*c,\
-                          ('py1','R','dxy'):  -pdp,\
-                          ('py1','L','dxy'):   pdp,\
-                          ('px2','D','dxy'):   pdp,\
-                          ('px2','U','dxy'):  -pdp,\
+                          ('px1','R','d3z2r2'): -(pds+pdsdiff)/2.0,\
+                          ('px1','L','d3z2r2'):  (pds+pdsdiff)/2.0,\
+                          ('py2','D','d3z2r2'):  (pds-pdsdiff)/2.0,\
+                          ('py2','U','d3z2r2'): -(pds-pdsdiff)/2.0,\
+                          ('px1','R','dx2y2'):   (pds+pdsdiff)*c,\
+                          ('px1','L','dx2y2'):  -(pds+pdsdiff)*c,\
+                          ('py2','D','dx2y2'):   (pds-pdsdiff)*c,\
+                          ('py2','U','dx2y2'):  -(pds-pdsdiff)*c,\
+                          ('py1','R','dxy'):  -(pdp-pdpdiff),\
+                          ('py1','L','dxy'):   pdp-pdpdiff,\
+                          ('px2','D','dxy'):   pdp+pdpdiff,\
+                          ('px2','U','dxy'):  -(pdp+pdpdiff),\
                           ('pz1','R','dxz'):  -pdp,\
                           ('pz1','L','dxz'):   pdp,\
                           ('pz2','D','dyz'):   pdp,\
