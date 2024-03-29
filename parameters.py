@@ -2,7 +2,7 @@ import math
 import numpy as np
 M_PI = math.pi
 
-Mc = 10
+Mc = 20
 
 # See George's email on Nov.4, 2020
 # Need to tune ed to get single hole spectra peak
@@ -21,11 +21,11 @@ ed = {'d3z2r2': 0,\
       'dyz'   : 0}
 ep_avgs = np.arange(3.5, 7.01, 3.5) 
 #for computing critical points or plotting precise figures
-# ep_avgs1 = np.arange(0.0, 6.49, 0.5)
-# ep_avgs2 = np.arange(6.5, 8.99, 0.1)
-# ep_avgs3 = np.arange(9.00,12.01 , 0.5)
-# ep_avgs=np.hstack((np.hstack((ep_avgs1, ep_avgs2)),ep_avgs3))
-ep_difs = np.arange(0.0, 0.051, 0.01) 
+ep_avgs1 = np.arange(0.0, 6.49, 0.5)
+ep_avgs2 = np.arange(6.5, 8.99, 0.1)
+ep_avgs3 = np.arange(9.00,12.01 , 0.5)
+ep_avgs=np.hstack((np.hstack((ep_avgs1, ep_avgs2)),ep_avgs3))
+ep_difs = np.arange(0.0, 0.101, 0.01) 
 
 As = np.arange(6.0, 6.01, 1.0)
 B = 0.15
@@ -35,12 +35,12 @@ C = 0.58
 #B = 0
 #C = 0
 
-Upps = np.arange(0, 4.01, 10)
+Upps = np.arange(0.0, 0.01, 10)
 Vpps = np.arange(0.0, 0.01, 0.1)
-Udifs = np.arange(0,1.01,10)
+Udifs = np.arange(0,0.01,10)
 
-Upds = np.arange(0,0.51,10)
-Updfs = np.arange(0,0.101,10)
+Upds = np.arange(0.5,0.51,10)
+Updfs = np.arange(-0.2,0.201,0.02)
 
 # Note: tpd and tpp are only amplitude signs are considered separately in hamiltonian.py
 # Slater Koster integrals and the overlaps between px and d_x^2-y^2 is sqrt(3) bigger than between px and d_3z^2-r^2 
@@ -66,7 +66,7 @@ elif Norb==9 or Norb==10 or Norb==11:
     #vals = np.linspace(0.001, 0.001, num=1, endpoint=True)
     pdss = np.asarray(vals)*2./np.sqrt(3)
     pdsdiffs = np.arange(-0.1, 0.1001, 0.02)
-#     pdsdiffs = [0.0]
+    pdsdiffs = [0.0]
     pdps = np.asarray(pdss)*np.sqrt(3)/4.
     #pdss = [1.5]
     #pdps = [0.7]

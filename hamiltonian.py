@@ -668,43 +668,35 @@ def get_double_occu_list(VS):
         orb2 = state['hole2_orb']
         x1, y1, z1 = state['hole1_coord']
         x2, y2, z2 = state['hole2_coord']
-        dist = (x1-x2)**2 + (y1-y2)**2
-
         if (x1,y1) == (x2,y2):
             if orb1 in pam.Ni_orbs and orb2 in pam.Ni_orbs:
                 d_list.append(i)
                 #print "d_double: no_eh", i, s1,orb1,x1,y1,s2,orb2,x2,y2
-            elif x1%2==1 and y1%2==0:
-                
+            elif x1%2==1 and y1%2==0:  
                 pUppx_list.append(i)
             elif x1%2==0 and y1%2==1:
                 pUppy_list.append(i)
-            else:
-                pUpp_list.append(i)
-        elif abs(dist-2)<1.e-5:
+        elif abs(x1-x2)==1 and abs(y1-y2)==1:
             assert(orb1 in pam.O_orbs and orb2 in pam.O_orbs)
             pVpp_list.append(i)
-        elif abs(dist-1)<1.e-5:
-            if (x1**2+y1**2 ==0) or (x2**2+y2**2 ==0):
-                if ((x1+y1)%2==1 and x1%2==1 and y1%2==0) or ((x2+y2)%2==1 and x2%2==1 and y2%2==0):
-                
-                    pUpdx_list.append(i) 
-                if ((x1+y1)%2==1 and x1%2==0 and y1%2==1) or ((x2+y2)%2==1 and x2%2==0 and y2%2==1):
-                    pUpdy_list.append(i) 
+        elif (x1==0 and y1==0) or (x2==0 and y2==0):
+            if abs(x1-x2)==1 and abs(y1-y2)==0:
+                pUpdx_list.append(i) 
+            elif abs(x1-x2)==0 and abs(y1-y2)==1:
+                pUpdy_list.append(i) 
             
             
     print ("len(d_list)", len(d_list))
-    print ("len(pUpp_list)", len(pUpp_list))
     print ("len(pUppx_list)", len(pUppx_list))
     print ("len(pUppy_list)", len(pUppy_list))
     print ("len(pVpp_list)", len(pVpp_list))
     print ("len(pUpdx_list)", len(pUpdx_list))
     print ("len(pUpdy_list)", len(pUpdy_list))
     
-    return d_list ,pUppx_list,pUppy_list,pUpp_list, pVpp_list, pUpdx_list ,pUpdy_list
+    return d_list ,pUppx_list,pUppy_list, pVpp_list, pUpdx_list ,pUpdy_list
 
 
-def create_interaction_matrix_ALL_syms(VS,d_double,pUppx_double,pUppy_double,pUpp_double,pVpp_double,pUpdx_double,pUpdy_double,S_val, \
+def create_interaction_matrix_ALL_syms(VS,d_double,pUppx_double,pUppy_double,pVpp_double,pUpdx_double,pUpdy_double,S_val, \
                                        Sz_val, AorB_sym, A, Upp,Udif,Vpp,Upd,Updf):
     '''
     Create Coulomb-exchange interaction matrix of d-multiplets including all symmetries
@@ -797,8 +789,6 @@ def create_interaction_matrix_ALL_syms(VS,d_double,pUppx_double,pUppy_double,pUp
         data.append(Upp+Udif); row.append(i); col.append(i)
     for i in pUppy_double:
         data.append(Upp-Udif); row.append(i); col.append(i)
-    for i in pUpp_double:
-        data.append(Upp); row.append(i); col.append(i)
     for i in pVpp_double:
         data.append(Vpp); row.append(i); col.append(i)
     for i in pUpdx_double:
